@@ -6,14 +6,25 @@ const opn = require('opn')
 program
   .version('0.0.1', '-v, --version')
   .usage('-b [options] -r [number]')
-  .option('-b, --board <board>', 'Board.')
+  .command('b <board>')
   .option('-r, --recommend <recommend>', 'Recommend.')
-  .parse(process.argv)
+  .action((board, cmd) => {
+    let prefix = `https://www.ptt.cc/bbs/${board}`
+    let recommend = (cmd.recommend)
+      ? `/search?q=recommend%3A${cmd.recommend}`
+      : ''
+    let url = prefix + recommend
+    opn(url)
+  })
 
-if ( program.board ) {
-    let prefix = 'https://www.ptt.cc/bbs/'
-    let board = `${ program.board }`
-    let recommend = ( program.recommend ) ? `/search?q=recommend%3A${ program.recommend }` : ''
-    let url = prefix+board+recommend
-    opn(url);
+program
+  .command('*')
+  .action(function (env) {
+    console.log('unknow argument: "%s"', env)
+  })
+
+program.parse(process.argv)
+
+if (program.args.length < 1) {
+  opn('https://www.ptt.cc/bbs/')
 }
