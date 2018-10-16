@@ -1,0 +1,18 @@
+{
+  "name": "ptt_view",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "ptt": "./index.js"
+  },
+  "author": "SuKamo",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.19.0",
+    "opn": "^5.4.0"
+  }
+}
