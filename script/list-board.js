@@ -1,11 +1,11 @@
-const boardJson = require('../data/board.json')
+const common = require('../setting/database/connect.js').Common
 
-function getdata () {
-  let list = []
-  for (let value of boardJson.common) list.push(value)
-  return list
+function getAll () {
+  return common.findAll({
+    attributes: ['board']
+  })
 }
 
 module.exports = {
-  getdata
+  getAll
 }

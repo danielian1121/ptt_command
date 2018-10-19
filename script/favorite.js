@@ -1,14 +1,21 @@
-const boardJson = require('../data/board.json')
-const favorite = boardJson.favorite
+const favorite = require('../setting/database/connect.js').Favorite
 
 function addBoard (input) {
-  if (favorite.indexOf(input)) {
-    favorite.push(input)
-    return true
-  }
-  return false
+  return favorite.findOrCreate(input)
+}
+
+function getAll () {
+  return favorite.findAll({
+    attributes: ['board']
+  })
+}
+
+function deleteBoard (input) {
+  return favorite.destroy(input)
 }
 
 module.exports = {
-  addBoard
+  addBoard,
+  getAll,
+  deleteBoard
 }

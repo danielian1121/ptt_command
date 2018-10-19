@@ -8,6 +8,7 @@ const sequelize = new Sequelize(
   {
     host: config.host,
     dialect: config.dialect,
+    logging: false,
     operatorsAliases: {
       $and: Op.and,
       $or: Op.or,
@@ -24,14 +25,15 @@ const Common = sequelize.define('common', {
   timestamps: false
 })
 
-function add (input) {
-  sequelize.sync()
-    .then(() => Common.create(input))
-    .catch(err => {
-      console.log(err)
-    })
-}
+const Favorite = sequelize.define('favorite', {
+  board: Sequelize.STRING
+}, {
+  timestamps: false
+})
+
+Favorite.sync()
 
 module.exports = {
-  add
+  Common,
+  Favorite
 }
